@@ -1,0 +1,29 @@
+Lets say that for our donations we want to use currency conversion rates that are periodically updated. In order to do this, we sign up for a 3rd party service that provides us with daily conversion rates for the 248 currencies that we support. The service is an API that outputs XML in the format:
+
+<response>
+<conversion>
+<currency>JPY</currency>
+<rate>0.013125</rate>
+</conversion>
+<conversion>
+<currency>BGN</currency>
+<rate>0.6707</rate>
+</conversion>
+<conversion>
+<currency>CZK</currency>
+<rate>0.05190</rate>
+</conversion>
+
+</response>
+…when called with the URL https://www.rates.com/cgi-bin/xml?currency=all
+
+Construct a PHP class that handles all of the following tasks:
+* Retrieving the data from the API
+* Parsing the data
+* Storing it in a pre-existing mySQL table, 'exchange_rates', with 2 fields: currency, rate
+* Given an amount of a foreign currency, convert it into the equivalent in US dollars. For example:
+input: 'JPY 5000'
+output: 'USD 65.58'
+* Given an array of amounts in foreign currencies, return an array of US equivalent amounts in the same order. For example…
+input: array ( 'JPY 5000', 'CZK 62.5' )
+output: array( 'USD 65.58', 'USD 3.27' )
